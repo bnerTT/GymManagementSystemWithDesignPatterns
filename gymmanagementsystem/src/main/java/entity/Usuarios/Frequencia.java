@@ -1,4 +1,4 @@
-package model.Usuarios;
+package entity.Usuarios;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

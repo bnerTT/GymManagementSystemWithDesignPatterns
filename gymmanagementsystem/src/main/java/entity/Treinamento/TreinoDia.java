@@ -1,4 +1,4 @@
-package model.Treinamento;
+package entity.Treinamento;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package model.Usuarios;
+package entity.Usuarios;
 
 public abstract class Usuario {
     private int id;
@@ -8,6 +8,9 @@ public abstract class Usuario {
     private String senha;
     private String endereco;
     private String telefone;
+
+    public Usuario(){
+    }
 
     public Usuario(int id, String nome, String cpf, String email, String senha, String endereco, String telefone) {
         this.id = id;

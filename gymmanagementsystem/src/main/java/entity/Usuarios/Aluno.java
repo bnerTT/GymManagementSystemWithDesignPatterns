@@ -1,10 +1,11 @@
-package model.Usuarios;
+package entity.Usuarios;
 
-import model.Treinamento.Treinamento;
+import entity.Treinamento.Treinamento;
 
 public class Aluno extends Usuario {
     private String matricula;
     private String plano;
+    private Instrutor instrutor;
     private Treinamento treinamento;
     private Frequencia frequencia;
 
@@ -13,10 +14,14 @@ public class Aluno extends Usuario {
         return treinamento;
     }
 
+    public Aluno(){
+    }
+
     public Aluno(int id, String nome, String cpf, String email, String senha, String endereco, String telefone, String matricula, String plano) {
         super(id, nome, cpf, email, senha, endereco, telefone);
         this.matricula = matricula;
         this.plano = plano;
+        this.instrutor = null;
         this.treinamento = new Treinamento();
         this.frequencia = new Frequencia();
     }
@@ -51,6 +56,14 @@ public class Aluno extends Usuario {
 
     public void setFrequencia(Frequencia frequencia) {
         this.frequencia = frequencia;
+    }
+
+    public Instrutor getInstrutor() {
+        return instrutor;
+    }
+
+    public void setInstrutor(Instrutor instrutor) {
+        this.instrutor = instrutor;
     }
 
     @Override
