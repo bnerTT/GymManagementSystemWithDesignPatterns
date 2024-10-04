@@ -1,5 +1,7 @@
 package model.Usuarios;
 
+import java.util.ArrayList;
+
 public class Gerente extends Usuario {
     private String departamento;
 
@@ -7,7 +9,7 @@ public class Gerente extends Usuario {
         System.out.println(aluno + " associado a " + instrutor);
     }
 
-    public void gerenciarAlunos(List<Aluno> alunos){
+    public void gerenciarAlunos(ArrayList<Aluno> alunos){
         System.out.println("Alunos gerenciados");
     }
 
@@ -24,5 +26,10 @@ public class Gerente extends Usuario {
         this.departamento = departamento;
     }
 
-    
+    @Override
+    public String toString() {
+        return "Gerente{" +
+                "departamento='" + departamento + '\'' +
+                '}';
+    }
 }

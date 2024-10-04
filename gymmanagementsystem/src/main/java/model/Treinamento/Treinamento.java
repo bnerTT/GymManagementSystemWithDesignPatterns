@@ -1,11 +1,15 @@
 package model.Treinamento;
 
+
+import java.util.ArrayList;
+import java.util.Date;
+
 public class Treinamento {
     private int id;
     private String tipo;
     private Date dataInicio;
     private Date dataFinal;
-    private List<TreinoDia>;
+    private ArrayList<TreinoDia> exerciciosDias;
 
     private void adicionarTreinoDia(TreinoDia treinoDia){
         System.out.println(treinoDia + " adicionado");
@@ -15,12 +19,15 @@ public class Treinamento {
         System.out.println(treinoDia + " removido");
     }
 
-    public Treinamento(int id, String tipo, Date dataInicio, Date dataFinal, List<TreinoDia> treinoDias) {
+    public Treinamento(){
+    }
+
+    public Treinamento(int id, String tipo, Date dataInicio, Date dataFinal) {
         this.id = id;
         this.tipo = tipo;
         this.dataInicio = dataInicio;
         this.dataFinal = dataFinal;
-        this.treinoDias = treinoDias;
+        this.exerciciosDias = new ArrayList<>();
     }
 
     public int getId() {
@@ -31,20 +38,20 @@ public class Treinamento {
         this.id = id;
     }
 
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
     public Date getDataInicio() {
         return dataInicio;
     }
 
     public void setDataInicio(Date dataInicio) {
         this.dataInicio = dataInicio;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public Date getDataFinal() {
@@ -55,5 +62,22 @@ public class Treinamento {
         this.dataFinal = dataFinal;
     }
 
-    
+    public ArrayList<TreinoDia> getExerciciosDias() {
+        return exerciciosDias;
+    }
+
+    public void setExerciciosDias(ArrayList<TreinoDia> exerciciosDias) {
+        this.exerciciosDias = exerciciosDias;
+    }
+
+    @Override
+    public String toString() {
+        return "Treinamento{" +
+                "id=" + id +
+                ", tipo='" + tipo + '\'' +
+                ", dataInicio=" + dataInicio +
+                ", dataFinal=" + dataFinal +
+                ", exerciciosDias=" + exerciciosDias +
+                '}';
+    }
 }

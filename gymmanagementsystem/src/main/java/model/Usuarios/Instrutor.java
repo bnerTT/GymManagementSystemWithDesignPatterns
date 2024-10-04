@@ -1,13 +1,16 @@
 package model.Usuarios;
 
+import model.Treinamento.Treinamento;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Instrutor extends Usuario{
-    private List<Aluno> alunos;
+    private ArrayList<Aluno> alunos;
 
-    public Instrutor(int id, String nome, String cpf, String email, String senha, String endereco, String telefone, List<Aluno> alunos) {
+    public Instrutor(int id, String nome, String cpf, String email, String senha, String endereco, String telefone) {
         super(id, nome, cpf, email, senha, endereco, telefone);
-        this.alunos = alunos;
+        this.alunos = new ArrayList<>();
     }
 
     public void registrarFrequencia(Aluno aluno){
@@ -26,9 +29,7 @@ public class Instrutor extends Usuario{
         return alunos;
     }
 
-    public void setAlunos(List<Aluno> alunos) {
+    public void setAlunos(ArrayList<Aluno> alunos) {
         this.alunos = alunos;
     }
-    
-    
 }

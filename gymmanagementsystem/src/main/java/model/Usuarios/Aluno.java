@@ -1,5 +1,7 @@
 package model.Usuarios;
 
+import model.Treinamento.Treinamento;
+
 public class Aluno extends Usuario {
     private String matricula;
     private String plano;
@@ -11,12 +13,12 @@ public class Aluno extends Usuario {
         return treinamento;
     }
 
-    public Aluno(String nome, String email, String senha, String matricula, String plano, Treinamento treinamento, Frequencia frequencia) {
-        super(nome, email, senha);
+    public Aluno(int id, String nome, String cpf, String email, String senha, String endereco, String telefone, String matricula, String plano) {
+        super(id, nome, cpf, email, senha, endereco, telefone);
         this.matricula = matricula;
         this.plano = plano;
-        this.treinamento = treinamento;
-        this.frequencia = frequencia;
+        this.treinamento = new Treinamento();
+        this.frequencia = new Frequencia();
     }
 
     public String getMatricula() {
@@ -58,8 +60,6 @@ public class Aluno extends Usuario {
                 ", plano='" + plano + '\'' +
                 ", treinamento=" + treinamento +
                 ", frequencia=" + frequencia +
-                ", usuario=" + super.toString() +
                 '}';
     }
-
 }
