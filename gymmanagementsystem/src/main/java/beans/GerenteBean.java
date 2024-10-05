@@ -2,12 +2,21 @@ package beans;
 
 import entity.Usuarios.Aluno;
 import entity.Usuarios.Instrutor;
+import jakarta.annotation.ManagedBean;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+@ViewScoped
+@ManagedBean
+public class GerenteBean implements Serializable {
 
-public class GerenteBean {
+    private static final long serialVersionUID = 1L;
+
     ///Utilizado em cadastros
     private Aluno novoAluno;
     private Instrutor novoInstrutor;
@@ -19,6 +28,21 @@ public class GerenteBean {
     ///Utilizado para exibir
     private List<Aluno> alunos;
     private List<Instrutor> instrutores;
+
+    ///Injecao de servicos
+    @Inject
+    private AlunoService alunoService;
+
+    @Inject
+    private InstrutorService instrutorService;
+
+    @PostConstruct
+    public void init() {
+        novoAluno = new Aluno();
+        novoInstrutor = new Instrutor();
+
+        atualizarListas();
+    }
 
     public void associarAluno(Aluno aluno, Instrutor instrutor){
         instrutor.getAlunos().add(aluno);

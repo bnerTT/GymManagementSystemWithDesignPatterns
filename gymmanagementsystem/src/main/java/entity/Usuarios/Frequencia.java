@@ -1,9 +1,18 @@
 package entity.Usuarios;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
+@Entity
 public class Frequencia {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @ElementCollection
     private ArrayList<LocalDate> frequencia;
 
     public void registarFrequencia(){

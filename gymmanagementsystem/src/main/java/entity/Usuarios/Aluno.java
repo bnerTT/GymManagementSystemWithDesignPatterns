@@ -1,12 +1,26 @@
 package entity.Usuarios;
 
 import entity.Treinamento.Treinamento;
+import jakarta.persistence.*;
 
+
+@Entity
 public class Aluno extends Usuario {
+
     private String matricula;
+
     private String plano;
+
+    @ManyToOne
+    @JoinColumn(name = "instrutor_id")
     private Instrutor instrutor;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "treinamento_id", referencedColumnName = "id")
     private Treinamento treinamento;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "frequencia_id", referencedColumnName = "id")
     private Frequencia frequencia;
 
     public Treinamento visualizarTreinamento(){

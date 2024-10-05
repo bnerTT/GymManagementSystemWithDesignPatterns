@@ -1,11 +1,17 @@
 package entity.Usuarios;
 
 import entity.Treinamento.Treinamento;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Instrutor extends Usuario{
+    ///chave estrangeira
+    @OneToMany(mappedBy = "instrutor", cascade = CascadeType.ALL, orphanRemoval = true)
     private ArrayList<Aluno> alunos;
 
     public Instrutor(){

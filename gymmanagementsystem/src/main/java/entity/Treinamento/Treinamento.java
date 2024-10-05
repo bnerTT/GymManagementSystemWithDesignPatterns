@@ -1,14 +1,24 @@
 package entity.Treinamento;
 
 
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.Date;
 
+@Entity
 public class Treinamento {
+    @Id
+    @GeneratedValue
     private int id;
+
     private String tipo;
+
     private Date dataInicio;
+
     private Date dataFinal;
+
+    @OneToMany(mappedBy = "treinamento", cascade = CascadeType.ALL, orphanRemoval = true)
     private ArrayList<TreinoDia> exerciciosDias;
 
     private void adicionarTreinoDia(TreinoDia treinoDia){

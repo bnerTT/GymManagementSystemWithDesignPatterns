@@ -1,11 +1,32 @@
 package entity.Treinamento;
 
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 
+@Entity
 public class TreinoDia {
+    @Id
+    @GeneratedValue
     private int id;
+
     private String diaSemana;
+
+    @ManyToOne
+    @JoinColumn(name = "treinamento_id")
+    private Treinamento treinamento;
+
+    @ElementCollection
     private ArrayList<String> atividades;
+
+    public TreinoDia(int id, String diaSemana, ArrayList<String> atividades) {
+        this.id = id;
+        this.diaSemana = diaSemana;
+        this.atividades = atividades;
+    }
+
+    public TreinoDia() {
+    }
 
     private void adicionarAtividade(String atividade){
         System.out.println(atividade + " adicionada");

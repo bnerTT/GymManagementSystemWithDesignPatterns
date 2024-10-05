@@ -1,12 +1,32 @@
 package entity.Usuarios;
 
+
+import jakarta.persistence.*;
+
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Usuario {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
+    @Column(name = "nome")
     private String nome;
+
+    @Column(name = "cpf")
     private String cpf;
+
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "senha")
     private String senha;
+
+    @Column(name = "endereco")
     private String endereco;
+
+    @Column(name = "telefone")
     private String telefone;
 
     public Usuario(){
@@ -20,15 +40,6 @@ public abstract class Usuario {
         this.senha = senha;
         this.endereco = endereco;
         this.telefone = telefone;
-    }
-
-    public boolean login(){
-        System.out.println("Login");
-        return false;
-    }
-
-    public void logout(){
-        System.out.println("Usuário deslogado");
     }
 
     public int getId() {
