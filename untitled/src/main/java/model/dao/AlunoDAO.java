@@ -52,20 +52,7 @@ public class AlunoDAO implements GenericaDAO<Aluno>{
             var rs = pstmt.executeQuery();
 
             if(rs.next()){
-                ///Método InstrutorDAO retorna por id
-                ///Método TreinamentoDAO retorna por id
-                ///Método FrequenciaDAO retorna por id
-                ///Jogar nos parametros
-                InstrutorDAO instrutorDAO = new InstrutorDAO();
-                Instrutor instrutor = new Instrutor();
-
-                ///TreinamentoDAO treinamentoDAO = new TreinamentoDAO();
-                Treinamento treinamento = new Treinamento();
-
-                ///FrequenciaDAO frequenciaDAO = new FrequenciaDAO();
-                Frequencia frequencia = new Frequencia();
-
-                return new Aluno(
+                Aluno aluno = new Aluno(
                         rs.getInt("id"),
                         rs.getString("nome"),
                         rs.getString("cpf"),
@@ -74,11 +61,22 @@ public class AlunoDAO implements GenericaDAO<Aluno>{
                         rs.getString("telefone"),
                         rs.getString("endereco"),
                         rs.getString("matricula"),
-                        rs.getString("plano"),
-                        instrutor,
-                        treinamento,
-                        frequencia
+                        rs.getString("plano")
                 );
+
+                InstrutorDAO instrutorDAO = new InstrutorDAO();
+                Instrutor instrutor = instrutorDAO.buscarPorId(rs.getInt("instrutor_id"));
+                aluno.setInstrutor(instrutor);
+
+                TreinamentoDAO treinamentoDAO = new TreinamentoDAO();
+                Treinamento treinamento = treinamentoDAO.buscarTreinamentoPorId(rs.getInt("treinamento_id"));
+                aluno.setTreinamento(treinamento);
+
+                FrequenciaDAO frequenciaDAO = new FrequenciaDAO();
+                Frequencia frequencia = frequenciaDAO.buscarFrequenciaPorId(rs.getInt("frequencia_id"));
+                aluno.setFrequencia(frequencia);
+
+                return aluno;
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

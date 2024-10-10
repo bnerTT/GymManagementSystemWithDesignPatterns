@@ -6,13 +6,13 @@ import java.util.List;
 public class TreinoDia {
     private int id;
     private String diaSemana;
-    private Treinamento treinamento;
+    private int treinamento;
     private List<String> atividades;
 
     public TreinoDia() {
     }
 
-    public TreinoDia(int id, String diaSemana, Treinamento treinamento) {
+    public TreinoDia(int id, String diaSemana, int treinamento) {
         this.id = id;
         this.diaSemana = diaSemana;
         this.treinamento = treinamento;
@@ -27,11 +27,11 @@ public class TreinoDia {
         this.id = id;
     }
 
-    public Treinamento getTreinamento() {
+    public int getTreinamento() {
         return treinamento;
     }
 
-    public void setTreinamento(Treinamento treinamento) {
+    public void setTreinamento(int treinamento) {
         this.treinamento = treinamento;
     }
 

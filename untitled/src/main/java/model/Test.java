@@ -12,7 +12,14 @@ import java.util.List;
 
 public class Test {
     public static void main(String[] args) throws SQLException {
-        Gerente gerente = new Gerente(
+
+
+
+
+
+
+
+        /*Gerente gerente = new Gerente(
                 "Jackson",        // nome
                 "123.456.789-00",    // cpf
                 "joao@empresa.com",  // email
