@@ -37,7 +37,7 @@ public class GerenteEditaView {
             System.out.println("0. Finalizar");
             opcao = input.nextInt();
             input.nextLine();  // Limpa o buffer
-
+            Aluno alunoAlterado = new Aluno();
             switch (opcao) {
                 case 1:
                     System.out.println("Insira o novo nome:");
@@ -83,10 +83,11 @@ public class GerenteEditaView {
                     System.out.println("Insira o novo instrutor:");
                     novoInstrutor = input.nextLine();
                     // Supondo que você tenha um método para alterar o instrutor.
+                    InstrutorController instrutorController = new InstrutorController();
+                    alunoAlterado.setInstrutor(instrutorController.buscarInstrutor(novoInstrutor));
                     instrutorAlterado = true;
                     break;
                 case 0:
-                    Aluno alunoAlterado = new Aluno();
                     System.out.println("Confirme as seguintes alterações:");
                     if (nomeAlterado) {
                         System.out.println("Nome: " + aluno.getNome() + " -> " + novoNome);

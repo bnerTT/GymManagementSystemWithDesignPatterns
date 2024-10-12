@@ -85,7 +85,11 @@ public class AlunoDAO implements GenericaDAO<Aluno>{
             pstmt.setString(6, alunoEditado.getEndereco());
             pstmt.setString(7, alunoEditado.getMatricula());
             pstmt.setString(8, alunoEditado.getPlano());
-            pstmt.setInt(9, alunoEditado.getInstrutor().getId());
+            if(alunoEditado.getInstrutor() == null){
+                pstmt.setObject(9, null, java.sql.Types.NULL);
+            } else {
+                pstmt.setInt(9, alunoEditado.getInstrutor().getId());
+            }
             pstmt.setInt(10, idAluno);
             pstmt.executeUpdate();
         } catch (SQLException e) {
