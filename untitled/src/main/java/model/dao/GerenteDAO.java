@@ -1,8 +1,10 @@
 package model.dao;
 
 import model.database.DB;
+import model.domain.Aluno;
 import model.domain.Gerente;
 import model.domain.Gerente;
+import model.domain.Instrutor;
 
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -57,6 +59,56 @@ public class GerenteDAO implements GenericaDAO<Gerente>{
                         rs.getString("endereco"),
                         rs.getString("departamento")
                 );
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public Gerente buscarGerentePorNome(String nome) throws SQLException {
+        var sql = "SELECT * FROM gerente WHERE nome = ?";
+        try(var conn = DB.connect(); var pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, nome);
+
+            var rs = pstmt.executeQuery();
+            if(rs.next()){
+                Gerente gerente = new Gerente(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("cpf"),
+                        rs.getString("email"),
+                        rs.getString("senha"),
+                        rs.getString("telefone"),
+                        rs.getString("endereco"),
+                        rs.getString("departamento")
+                );
+                return gerente;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public Gerente buscarGerentePorEmail(String email) throws SQLException {
+        var sql = "SELECT * FROM gerente WHERE email = ?";
+        try(var conn = DB.connect(); var pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, email);
+
+            var rs = pstmt.executeQuery();
+            if(rs.next()){
+                Gerente gerente = new Gerente(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("cpf"),
+                        rs.getString("email"),
+                        rs.getString("senha"),
+                        rs.getString("telefone"),
+                        rs.getString("endereco"),
+                        rs.getString("departamento")
+                );
+                return gerente;
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

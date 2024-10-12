@@ -9,6 +9,10 @@ public class Instrutor extends Usuario {
     public Instrutor(){
     }
 
+    public Instrutor(String nome, String cpf, String email, String senha, String telefone, String endereco) {
+        super(nome, cpf, email, senha, telefone, endereco);
+    }
+
     public Instrutor(int id, String nome, String cpf, String email, String senha, String telefone, String endereco) {
         super(id, nome, cpf, email, senha, telefone, endereco);
         this.alunos = new ArrayList<>();

@@ -64,6 +64,50 @@ public class InstrutorDAO implements GenericaDAO<Instrutor>{
         return null;
     }
 
+    public Instrutor buscarInstrutorPorNome(String nome) throws SQLException {
+        var sql = "SELECT * FROM instrutor WHERE nome = ?";
+        try(var conn = DB.connect(); var pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, nome);
+
+            var rs = pstmt.executeQuery();
+            if(rs.next()){
+                Instrutor instrutor = new Instrutor(rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("cpf"),
+                        rs.getString("email"),
+                        rs.getString("senha"),
+                        rs.getString("telefone"),
+                        rs.getString("endereco"));
+                return instrutor;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public Instrutor buscarInstrutorPorEmail(String email) throws SQLException {
+        var sql = "SELECT * FROM instrutor WHERE email = ?";
+        try(var conn = DB.connect(); var pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, email);
+
+            var rs = pstmt.executeQuery();
+            if(rs.next()){
+                Instrutor instrutor = new Instrutor(rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("cpf"),
+                        rs.getString("email"),
+                        rs.getString("senha"),
+                        rs.getString("telefone"),
+                        rs.getString("endereco"));
+                return instrutor;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
     public ArrayList<Instrutor> listar() throws SQLException {
         ArrayList<Instrutor> instrutores = new ArrayList<>();
         var sql = "SELECT * FROM instrutor";

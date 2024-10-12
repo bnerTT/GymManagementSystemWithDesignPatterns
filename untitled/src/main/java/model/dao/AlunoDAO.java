@@ -12,7 +12,37 @@ import java.util.List;
 
 public class AlunoDAO implements GenericaDAO<Aluno>{
 
+
     public void salvar(Aluno aluno) throws SQLException {
+        var sql = "INSERT INTO aluno(nome, cpf, email, senha, telefone, endereco, matricula, plano)"
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try(var conn = DB.connect()){
+            assert conn != null;
+
+            try(var pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
+                pstmt.setString(1, aluno.getNome());
+                pstmt.setString(2, aluno.getCpf());
+                pstmt.setString(3, aluno.getEmail());
+                pstmt.setString(4, aluno.getSenha());
+                pstmt.setString(5, aluno.getTelefone());
+                pstmt.setString(6, aluno.getEndereco());
+                pstmt.setString(7, aluno.getMatricula());
+                pstmt.setString(8, aluno.getPlano());
+
+                int insertedRow = pstmt.executeUpdate();
+
+                if (insertedRow > 0) {
+                    pstmt.getGeneratedKeys();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+    }
+
+    public void salvarComTreinamento(Aluno aluno) throws SQLException {
         var sql = "INSERT INTO aluno(instrutor_id, treinamento_id, frequencia_id, nome, cpf, email, senha, telefone, endereco, matricula, plano)"
         + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -42,6 +72,46 @@ public class AlunoDAO implements GenericaDAO<Aluno>{
             }
         }
 
+    }
+
+    public Aluno buscarPorNome(String nome) throws SQLException {
+        var sql = "SELECT * FROM aluno WHERE nome = ?";
+        try(var conn = DB.connect(); var pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, nome);
+
+            var rs = pstmt.executeQuery();
+
+            if(rs.next()){
+                Aluno aluno = new Aluno(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("cpf"),
+                        rs.getString("email"),
+                        rs.getString("senha"),
+                        rs.getString("telefone"),
+                        rs.getString("endereco"),
+                        rs.getString("matricula"),
+                        rs.getString("plano")
+                );
+
+                InstrutorDAO instrutorDAO = new InstrutorDAO();
+                Instrutor instrutor = instrutorDAO.buscarPorId(rs.getInt("instrutor_id"));
+                aluno.setInstrutor(instrutor);
+
+                TreinamentoDAO treinamentoDAO = new TreinamentoDAO();
+                Treinamento treinamento = treinamentoDAO.buscarTreinamentoPorId(rs.getInt("treinamento_id"));
+                aluno.setTreinamento(treinamento);
+
+                FrequenciaDAO frequenciaDAO = new FrequenciaDAO();
+                Frequencia frequencia = frequenciaDAO.buscarFrequenciaPorId(rs.getInt("frequencia_id"));
+                aluno.setFrequencia(frequencia);
+
+                return aluno;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 
     public Aluno buscarPorId(int id) throws SQLException {
@@ -75,6 +145,31 @@ public class AlunoDAO implements GenericaDAO<Aluno>{
                 FrequenciaDAO frequenciaDAO = new FrequenciaDAO();
                 Frequencia frequencia = frequenciaDAO.buscarFrequenciaPorId(rs.getInt("frequencia_id"));
                 aluno.setFrequencia(frequencia);
+
+                return aluno;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public Aluno buscarAlunoPorEmail(String email) throws SQLException {
+        var sql = "SELECT * FROM aluno WHERE email = ?";
+        try(var conn = DB.connect(); var pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, email);
+
+            var rs = pstmt.executeQuery();
+            if(rs.next()){
+                Aluno aluno = new Aluno(rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("cpf"),
+                        rs.getString("email"),
+                        rs.getString("senha"),
+                        rs.getString("telefone"),
+                        rs.getString("endereco"),
+                        rs.getString("matricula"),
+                        rs.getString("plano"));
 
                 return aluno;
             }

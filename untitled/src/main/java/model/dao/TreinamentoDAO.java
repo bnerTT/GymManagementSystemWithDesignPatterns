@@ -10,15 +10,12 @@ import java.util.List;
 public class TreinamentoDAO {
 
     public void inserirTreinamento(Treinamento treinamento) throws SQLException {
-        var sql = "INSERT INTO treinamento(tipo, data_inicio, data_fim) VALUES(?,?,?)";
+        var sql = "INSERT INTO treinamento DEFAULT VALUES";
 
         try(var conn = DB.connect()){
             assert conn != null;
 
             try(var pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
-                pstmt.setString(1, treinamento.getTipo());
-                pstmt.setDate(2, Date.valueOf(treinamento.getDataInicio()));
-                pstmt.setDate(3, Date.valueOf(treinamento.getDataFim()));
 
                 int insertedRow = pstmt.executeUpdate();
 
