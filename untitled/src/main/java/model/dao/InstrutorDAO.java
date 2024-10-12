@@ -1,10 +1,7 @@
 package model.dao;
 
 import model.database.DB;
-import model.domain.Aluno;
-import model.domain.Frequencia;
-import model.domain.Instrutor;
-import model.domain.Treinamento;
+import model.domain.*;
 
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -37,6 +34,22 @@ public class InstrutorDAO implements GenericaDAO<Instrutor>{
             }
         }
 
+    }
+
+    public void editar(int idInstrutor, Instrutor instrutor) throws SQLException {
+        var sql = "UPDATE instrutor SET nome=?, cpf=?, email=?, senha=?, telefone=?, endereco=? WHERE id=?";
+        try(var conn = DB.connect(); var pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, instrutor.getNome());
+            pstmt.setString(2, instrutor.getCpf());
+            pstmt.setString(3, instrutor.getEmail());
+            pstmt.setString(4, instrutor.getSenha());
+            pstmt.setString(5, instrutor.getTelefone());
+            pstmt.setString(6, instrutor.getEndereco());
+            pstmt.setInt(7, idInstrutor);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public Instrutor buscarPorId(int id) throws SQLException {

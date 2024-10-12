@@ -13,6 +13,9 @@ public class Gerente extends Usuario{
         this.departamento = departamento;
     }
 
+    public Gerente() {
+    }
+
     public String getDepartamento() {
         return departamento;
     }

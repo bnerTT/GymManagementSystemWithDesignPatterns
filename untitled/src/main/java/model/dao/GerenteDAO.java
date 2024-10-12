@@ -40,6 +40,23 @@ public class GerenteDAO implements GenericaDAO<Gerente>{
 
     }
 
+    public void editar(int idGerente, Gerente gerente) throws SQLException {
+        var sql = "UPDATE gerente SET nome=?, cpf=?, email=?, senha=?, telefone=?, endereco=?, departamento=? WHERE id=?";
+        try(var conn = DB.connect(); var pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, gerente.getNome());
+            pstmt.setString(2, gerente.getCpf());
+            pstmt.setString(3, gerente.getEmail());
+            pstmt.setString(4, gerente.getSenha());
+            pstmt.setString(5, gerente.getTelefone());
+            pstmt.setString(6, gerente.getEndereco());
+            pstmt.setString(7, gerente.getDepartamento());
+            pstmt.setInt(8, idGerente);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public Gerente buscarPorId(int id) throws SQLException {
         var sql = "SELECT * FROM gerente WHERE id = ?";
         try(var conn = DB.connect(); var pstmt = conn.prepareStatement(sql)){

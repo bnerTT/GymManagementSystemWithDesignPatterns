@@ -29,4 +29,8 @@ public class AlunoController {
         }
         alunoDAO.deletar(aluno.getId());
     }
+
+    public void editar(Aluno aluno, Aluno alunoEditado) throws SQLException {
+        alunoDAO.editarAluno(aluno.getId(), alunoEditado);
+    }
 }

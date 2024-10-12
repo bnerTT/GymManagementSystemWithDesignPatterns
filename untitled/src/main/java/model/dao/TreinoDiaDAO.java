@@ -56,7 +56,7 @@ public class TreinoDiaDAO {
         }
     }
 
-    public List<TreinoDia> buscarTreinoDiasPorTreinamentoId(int treinamentoId) throws SQLException {
+    public static List<TreinoDia> buscarTreinoDiasPorTreinamentoId(int treinamentoId) throws SQLException {
         var sql = "SELECT * FROM treinodia WHERE treinamento_id = ?";
 
         try(var conn = DB.connect()){
@@ -79,7 +79,7 @@ public class TreinoDiaDAO {
         }
     }
 
-    public List<String> buscarAtividadesDoDia(int treinamentoId) throws SQLException {
+    public static List<String> buscarAtividadesDoDia(int treinamentoId) throws SQLException {
         var sql = "SELECT * FROM treino WHERE treino.treino_dia_id = ?";
 
         try(var conn = DB.connect()){

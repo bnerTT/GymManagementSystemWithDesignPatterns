@@ -13,6 +13,8 @@ public class GerenteView {
         int menuControle;
         int tipoUsuario;
 
+        GerenteEditaView gerenteEditaView = new GerenteEditaView();
+
         InstrutorController instrutorController = new InstrutorController();
         GerenteController gerenteController = new GerenteController();
         AlunoController alunoController = new AlunoController();
@@ -122,6 +124,7 @@ public class GerenteView {
                                 System.out.println("Opção inválida.");
                                 break;
                         }
+                        break;
 
                         ///Remover
                     case 2:
@@ -185,34 +188,36 @@ public class GerenteView {
 
                         switch(tipoUsuario){
                             case 1:
-                                alunoDAO = new AlunoDAO();
-                                aluno = alunoDAO.buscarPorNome(nome);
+                                aluno = alunoController.buscarAlunoPorNome(nome);
                                 if(aluno == null){
                                     System.out.println("Aluno não encontrado.");
+                                    break;
                                 }
-
+                                gerenteEditaView.editarAluno(aluno, input);
                                 break;
+
                             case 2:
-                                instrutorDAO = new InstrutorDAO();
-                                instrutor = instrutorDAO.buscarInstrutorPorNome(nome);
+                                instrutor = instrutorController.buscarInstrutor(nome);
                                 if(instrutor == null){
                                     System.out.println("Instrutor não encontrado.");
+                                    break;
                                 }
-
+                                gerenteEditaView.editarInstrutor(instrutor, input);
                                 break;
+
                             case 3:
-                                gerenteDAO = new GerenteDAO();
-                                novoGerente = gerenteDAO.buscarGerentePorNome(nome);
+                                novoGerente = gerenteController.buscarGerente(nome);
                                 if(novoGerente == null){
                                     System.out.println("Gerente não encontrado.");
+                                    break;
                                 }
-
+                                gerenteEditaView.editarGerente(novoGerente, input);
                                 break;
+
                             default:
                                 System.out.println("Opção inválida.");
                                 break;
                         }
-
                         break;
 
                         ///Visualizar
@@ -255,6 +260,7 @@ public class GerenteView {
                                 System.out.println("Opção inválida.");
                                 break;
                         }
+                        break;
 
                     case 9:
                         System.out.println("Efetuando logout...");

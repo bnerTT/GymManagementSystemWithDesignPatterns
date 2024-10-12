@@ -19,4 +19,8 @@ public class GerenteController {
     public Gerente buscarGerente(String nome) throws SQLException{
         return(gerenteDAO.buscarGerentePorNome(nome));
     }
+
+    public void editarGerente(Gerente gerente, Gerente gerenteEditado) throws SQLException {
+        gerenteDAO.editar(gerente.getId(), gerenteEditado);
+    }
 }

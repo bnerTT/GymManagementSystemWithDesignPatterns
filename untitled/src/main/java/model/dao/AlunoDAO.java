@@ -74,6 +74,26 @@ public class AlunoDAO implements GenericaDAO<Aluno>{
 
     }
 
+    public void editarAluno(int idAluno, Aluno alunoEditado) throws SQLException {
+        var sql = "UPDATE aluno SET nome=?, cpf=?, email=?, senha=?, telefone=?, endereco=?, matricula=?, plano=?, instrutor_id=? WHERE id=?";
+        try(var conn = DB.connect(); var pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, alunoEditado.getNome());
+            pstmt.setString(2, alunoEditado.getCpf());
+            pstmt.setString(3, alunoEditado.getEmail());
+            pstmt.setString(4, alunoEditado.getSenha());
+            pstmt.setString(5, alunoEditado.getTelefone());
+            pstmt.setString(6, alunoEditado.getEndereco());
+            pstmt.setString(7, alunoEditado.getMatricula());
+            pstmt.setString(8, alunoEditado.getPlano());
+            pstmt.setInt(9, alunoEditado.getInstrutor().getId());
+            pstmt.setInt(10, idAluno);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
     public Aluno buscarPorNome(String nome) throws SQLException {
         var sql = "SELECT * FROM aluno WHERE nome = ?";
         try(var conn = DB.connect(); var pstmt = conn.prepareStatement(sql)){
