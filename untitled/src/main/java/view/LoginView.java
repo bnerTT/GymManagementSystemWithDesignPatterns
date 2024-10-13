@@ -1,7 +1,9 @@
 package view;
 
 
+import model.dao.AlunoDAO;
 import model.dao.GerenteDAO;
+import model.domain.Aluno;
 import model.domain.Gerente;
 import util.ValidaLogin;
 
@@ -42,6 +44,9 @@ public class LoginView {
                 switch(escolha){
                     case 1:
                         usuarioValidado = ValidaLogin.verificaAlunoLogin(email, senha);
+                        AlunoDAO alunoDAO = new AlunoDAO();
+                        AlunoView alunoView = new AlunoView();
+                        alunoView.displayAlunoView(alunoDAO.buscarAlunoPorEmail(email));
                         break;
 
                     case 2:
