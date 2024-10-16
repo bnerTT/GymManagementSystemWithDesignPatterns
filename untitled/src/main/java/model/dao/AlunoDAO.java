@@ -5,6 +5,9 @@ import model.domain.Aluno;
 import model.domain.Frequencia;
 import model.domain.Instrutor;
 import model.domain.Treinamento;
+import model.domain.Usuario;
+import model.domain.UsuarioFactory;
+import model.domain.UsuarioTipo;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -106,18 +109,19 @@ public class AlunoDAO implements GenericaDAO<Aluno>{
             var rs = pstmt.executeQuery();
 
             if(rs.next()){
-                Aluno aluno = new Aluno(
-                        rs.getInt("id"),
-                        rs.getString("nome"),
-                        rs.getString("cpf"),
-                        rs.getString("email"),
-                        rs.getString("senha"),
-                        rs.getString("telefone"),
-                        rs.getString("endereco"),
-                        rs.getString("matricula"),
-                        rs.getString("plano")
-                );
+                Usuario aluno = UsuarioFactory.criaUsuario(UsuarioTipo.ALUNO);
+                aluno.setId(rs.getInt("id"));
+                aluno.setNome(rs.getString("nome"));
+                aluno.setCpf(rs.getString("cpf"));
+                aluno.setEmail(rs.getString("email"));
+                aluno.setSenha(rs.getString("senha"));
+                aluno.setTelefone(rs.getString("telefone"));
+                aluno.setEndereco(rs.getString("endereco"));
+                ((Aluno) aluno).setMatricula(rs.getString("matricula"));
+                ((Aluno) aluno).setPlano(rs.getString("plano"));
 
+
+                
                 InstrutorDAO instrutorDAO = new InstrutorDAO();
                 Instrutor instrutor = instrutorDAO.buscarPorId(rs.getInt("instrutor_id"));
                 aluno.setInstrutor(instrutor);
@@ -146,17 +150,16 @@ public class AlunoDAO implements GenericaDAO<Aluno>{
             var rs = pstmt.executeQuery();
 
             if(rs.next()){
-                Aluno aluno = new Aluno(
-                        rs.getInt("id"),
-                        rs.getString("nome"),
-                        rs.getString("cpf"),
-                        rs.getString("email"),
-                        rs.getString("senha"),
-                        rs.getString("telefone"),
-                        rs.getString("endereco"),
-                        rs.getString("matricula"),
-                        rs.getString("plano")
-                );
+                Usuario aluno = UsuarioFactory.criaUsuario(UsuarioTipo.ALUNO);
+                aluno.setId(rs.getInt("id"));
+                aluno.setNome(rs.getString("nome"));
+                aluno.setCpf(rs.getString("cpf"));
+                aluno.setEmail(rs.getString("email"));
+                aluno.setSenha(rs.getString("senha"));
+                aluno.setTelefone(rs.getString("telefone"));
+                aluno.setEndereco(rs.getString("endereco"));
+                ((Aluno) aluno).setMatricula(rs.getString("matricula"));
+                ((Aluno) aluno).setPlano(rs.getString("plano"));
 
                 InstrutorDAO instrutorDAO = new InstrutorDAO();
                 Instrutor instrutor = instrutorDAO.buscarPorId(rs.getInt("instrutor_id"));
@@ -185,15 +188,16 @@ public class AlunoDAO implements GenericaDAO<Aluno>{
 
             var rs = pstmt.executeQuery();
             if(rs.next()){
-                Aluno aluno = new Aluno(rs.getInt("id"),
-                        rs.getString("nome"),
-                        rs.getString("cpf"),
-                        rs.getString("email"),
-                        rs.getString("senha"),
-                        rs.getString("telefone"),
-                        rs.getString("endereco"),
-                        rs.getString("matricula"),
-                        rs.getString("plano"));
+                Usuario aluno = UsuarioFactory.criaUsuario(UsuarioTipo.ALUNO);
+                aluno.setId(rs.getInt("id"));
+                aluno.setNome(rs.getString("nome"));
+                aluno.setCpf(rs.getString("cpf"));
+                aluno.setEmail(rs.getString("email"));
+                aluno.setSenha(rs.getString("senha"));
+                aluno.setTelefone(rs.getString("telefone"));
+                aluno.setEndereco(rs.getString("endereco"));
+                ((Aluno) aluno).setMatricula(rs.getString("matricula"));
+                ((Aluno) aluno).setPlano(rs.getString("plano"));
 
                 InstrutorDAO instrutorDAO = new InstrutorDAO();
                 Instrutor instrutor = instrutorDAO.buscarPorId(rs.getInt("instrutor_id"));
@@ -223,20 +227,20 @@ public class AlunoDAO implements GenericaDAO<Aluno>{
             var rs = pstmt.executeQuery();
 
             while(rs.next()){
-                int id = rs.getInt("id");
-                String nome = rs.getString("nome");
-                String cpf = rs.getString("cpf");
-                String email = rs.getString("email");
-                String senha = rs.getString("senha");
-                String telefone = rs.getString("telefone");
-                String endereco = rs.getString("endereco");
-                String matricula = rs.getString("matricula");
-                String plano = rs.getString("plano");
                 ///adicionar instrutor
                 ///adicionar treinamento
-                ///adicionar frequencia
-                Aluno aluno = new Aluno();
-                alunos.add(aluno);
+                ///adicionar frequencia;
+                Usuario aluno = UsuarioFactory.criaUsuario(UsuarioTipo.ALUNO);
+                aluno.setId(rs.getInt("id"));
+                aluno.setNome(rs.getString("nome"));
+                aluno.setCpf(rs.getString("cpf"));
+                aluno.setEmail(rs.getString("email"));
+                aluno.setSenha(rs.getString("senha"));
+                aluno.setTelefone(rs.getString("telefone"));
+                aluno.setEndereco(rs.getString("endereco"));
+                ((Aluno) aluno).setMatricula(rs.getString("matricula"));
+                ((Aluno) aluno).setPlano(rs.getString("plano"));
+                alunos.add((Aluno)(aluno));
             }
         } catch (SQLException e){
             System.out.println(e.getMessage());

@@ -60,16 +60,15 @@ public class InstrutorDAO implements GenericaDAO<Instrutor>{
             var rs = pstmt.executeQuery();
 
             if(rs.next()){
-
-                return new Instrutor(
-                        rs.getInt("id"),
-                        rs.getString("nome"),
-                        rs.getString("cpf"),
-                        rs.getString("email"),
-                        rs.getString("senha"),
-                        rs.getString("telefone"),
-                        rs.getString("endereco")
-                );
+                Usuario instrutor = UsuarioFactory.criaUsuario(UsuarioTipo.INSTRUTOR);
+                instrutor.setId(rs.getInt("id"));
+                instrutor.setNome(rs.getString("nome"));
+                instrutor.setCpf(rs.getString("cpf"));
+                instrutor.setEmail(rs.getString("email"));
+                instrutor.setSenha(rs.getString("senha"));
+                instrutor.setTelefone(rs.getString("telefone"));
+                instrutor.setEndereco(rs.getString("endereco"));
+                return ((Instrutor) instrutor);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -84,14 +83,15 @@ public class InstrutorDAO implements GenericaDAO<Instrutor>{
 
             var rs = pstmt.executeQuery();
             if(rs.next()){
-                Instrutor instrutor = new Instrutor(rs.getInt("id"),
-                        rs.getString("nome"),
-                        rs.getString("cpf"),
-                        rs.getString("email"),
-                        rs.getString("senha"),
-                        rs.getString("telefone"),
-                        rs.getString("endereco"));
-                return instrutor;
+                Usuario instrutor = UsuarioFactory.criaUsuario(UsuarioTipo.INSTRUTOR);
+                instrutor.setId(rs.getInt("id"));
+                instrutor.setNome(rs.getString("nome"));
+                instrutor.setCpf(rs.getString("cpf"));
+                instrutor.setEmail(rs.getString("email"));
+                instrutor.setSenha(rs.getString("senha"));
+                instrutor.setTelefone(rs.getString("telefone"));
+                instrutor.setEndereco(rs.getString("endereco"));
+                return ((Instrutor) instrutor);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -106,14 +106,15 @@ public class InstrutorDAO implements GenericaDAO<Instrutor>{
 
             var rs = pstmt.executeQuery();
             if(rs.next()){
-                Instrutor instrutor = new Instrutor(rs.getInt("id"),
-                        rs.getString("nome"),
-                        rs.getString("cpf"),
-                        rs.getString("email"),
-                        rs.getString("senha"),
-                        rs.getString("telefone"),
-                        rs.getString("endereco"));
-                return instrutor;
+                Usuario instrutor = UsuarioFactory.criaUsuario(UsuarioTipo.INSTRUTOR);
+                instrutor.setId(rs.getInt("id"));
+                instrutor.setNome(rs.getString("nome"));
+                instrutor.setCpf(rs.getString("cpf"));
+                instrutor.setEmail(rs.getString("email"));
+                instrutor.setSenha(rs.getString("senha"));
+                instrutor.setTelefone(rs.getString("telefone"));
+                instrutor.setEndereco(rs.getString("endereco"));
+                return ((Instrutor) instrutor);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -129,16 +130,15 @@ public class InstrutorDAO implements GenericaDAO<Instrutor>{
             var rs = pstmt.executeQuery();
 
             while(rs.next()){
-                int id = rs.getInt("id");
-                String nome = rs.getString("nome");
-                String cpf = rs.getString("cpf");
-                String email = rs.getString("email");
-                String senha = rs.getString("senha");
-                String telefone = rs.getString("telefone");
-                String endereco = rs.getString("endereco");
-
-                Instrutor instrutor = new Instrutor(/*parametros*/);
-                instrutores.add(instrutor);
+                Usuario instrutor = UsuarioFactory.criaUsuario(UsuarioTipo.INSTRUTOR);
+                instrutor.setId(rs.getInt("id"));
+                instrutor.setNome(rs.getString("nome"));
+                instrutor.setCpf(rs.getString("cpf"));
+                instrutor.setEmail(rs.getString("email"));
+                instrutor.setSenha(rs.getString("senha"));
+                instrutor.setTelefone(rs.getString("telefone"));
+                instrutor.setEndereco(rs.getString("endereco"));
+                instrutores.add((Instrutor) instrutor);
             }
         } catch (SQLException e){
             System.out.println(e.getMessage());

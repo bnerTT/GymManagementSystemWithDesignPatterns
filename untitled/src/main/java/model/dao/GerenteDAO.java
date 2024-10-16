@@ -1,10 +1,10 @@
 package model.dao;
 
 import model.database.DB;
-import model.domain.Aluno;
 import model.domain.Gerente;
-import model.domain.Gerente;
-import model.domain.Instrutor;
+import model.domain.Usuario;
+import model.domain.UsuarioFactory;
+import model.domain.UsuarioTipo;
 
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -66,16 +66,16 @@ public class GerenteDAO implements GenericaDAO<Gerente>{
 
             if(rs.next()){
 
-                return new Gerente(
-                        rs.getInt("id"),
-                        rs.getString("nome"),
-                        rs.getString("cpf"),
-                        rs.getString("email"),
-                        rs.getString("senha"),
-                        rs.getString("telefone"),
-                        rs.getString("endereco"),
-                        rs.getString("departamento")
-                );
+                Usuario gerente = UsuarioFactory.criaUsuario(UsuarioTipo.GERENTE);
+                gerente.setId(rs.getInt("id"));
+                gerente.setNome(rs.getString("nome"));
+                gerente.setCpf(rs.getString("cpf"));
+                gerente.setEmail(rs.getString("email"));
+                gerente.setSenha(rs.getString("senha"));
+                gerente.setTelefone(rs.getString("telefone"));
+                gerente.setEndereco(rs.getString("endereco"));
+                ((Gerente) gerente).setDepartamento(rs.getString("departamento"));
+                return ((Gerente) gerente);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -90,17 +90,16 @@ public class GerenteDAO implements GenericaDAO<Gerente>{
 
             var rs = pstmt.executeQuery();
             if(rs.next()){
-                Gerente gerente = new Gerente(
-                        rs.getInt("id"),
-                        rs.getString("nome"),
-                        rs.getString("cpf"),
-                        rs.getString("email"),
-                        rs.getString("senha"),
-                        rs.getString("telefone"),
-                        rs.getString("endereco"),
-                        rs.getString("departamento")
-                );
-                return gerente;
+                Usuario gerente = UsuarioFactory.criaUsuario(UsuarioTipo.GERENTE);
+                gerente.setId(rs.getInt("id"));
+                gerente.setNome(rs.getString("nome"));
+                gerente.setCpf(rs.getString("cpf"));
+                gerente.setEmail(rs.getString("email"));
+                gerente.setSenha(rs.getString("senha"));
+                gerente.setTelefone(rs.getString("telefone"));
+                gerente.setEndereco(rs.getString("endereco"));
+                ((Gerente) gerente).setDepartamento(rs.getString("departamento"));
+                return ((Gerente) gerente);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -115,17 +114,16 @@ public class GerenteDAO implements GenericaDAO<Gerente>{
 
             var rs = pstmt.executeQuery();
             if(rs.next()){
-                Gerente gerente = new Gerente(
-                        rs.getInt("id"),
-                        rs.getString("nome"),
-                        rs.getString("cpf"),
-                        rs.getString("email"),
-                        rs.getString("senha"),
-                        rs.getString("telefone"),
-                        rs.getString("endereco"),
-                        rs.getString("departamento")
-                );
-                return gerente;
+                Usuario gerente = UsuarioFactory.criaUsuario(UsuarioTipo.GERENTE);
+                gerente.setId(rs.getInt("id"));
+                gerente.setNome(rs.getString("nome"));
+                gerente.setCpf(rs.getString("cpf"));
+                gerente.setEmail(rs.getString("email"));
+                gerente.setSenha(rs.getString("senha"));
+                gerente.setTelefone(rs.getString("telefone"));
+                gerente.setEndereco(rs.getString("endereco"));
+                ((Gerente) gerente).setDepartamento(rs.getString("departamento"));
+                return ((Gerente) gerente);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -150,8 +148,16 @@ public class GerenteDAO implements GenericaDAO<Gerente>{
                 String endereco = rs.getString("endereco");
                 String departamento = rs.getString("departamento");
 
-                Gerente gerente = new Gerente(id, nome, cpf, email, senha, telefone, endereco, departamento);
-                gerentes.add(gerente);
+                Usuario gerente = UsuarioFactory.criaUsuario(UsuarioTipo.GERENTE);
+                gerente.setId(id);
+                gerente.setNome(nome);
+                gerente.setCpf(cpf);
+                gerente.setEmail(email);
+                gerente.setSenha(senha);
+                gerente.setTelefone(telefone);
+                gerente.setEndereco(endereco);
+                ((Gerente) gerente).setDepartamento(departamento);
+                gerentes.add((Gerente)gerente);
             }
         } catch (SQLException e){
             System.out.println(e.getMessage());
@@ -175,38 +181,38 @@ public class GerenteDAO implements GenericaDAO<Gerente>{
     }
 
     /*
-    public AlunoDAO(Connection conexao) {
+    public gerenteDAO(Connection conexao) {
         this.conexao = conexao;
     }
 
     @Override
-    public void salvar(Aluno aluno) throws SQLException {
-        String sql = "INSERT INTO aluno (nome, cpf, email, senha, telefone, endereco, matricula, plano, gerente_id, treinamento_id, frequencia_id) " +
+    public void salvar(gerente gerente) throws SQLException {
+        String sql = "INSERT INTO gerente (nome, cpf, email, senha, telefone, endereco, matricula, plano, gerente_id, treinamento_id, frequencia_id) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-        stmt.setString(1, aluno.getNome());
-        stmt.setString(2, aluno.getCpf());
-        stmt.setString(3, aluno.getEmail());
-        stmt.setString(4, aluno.getSenha());
-        stmt.setString(5, aluno.getTelefone());
-        stmt.setString(6, aluno.getEndereco());
-        stmt.setString(7, aluno.getMatricula());
-        stmt.setString(8, aluno.getPlano());
+        stmt.setString(1, gerente.getNome());
+        stmt.setString(2, gerente.getCpf());
+        stmt.setString(3, gerente.getEmail());
+        stmt.setString(4, gerente.getSenha());
+        stmt.setString(5, gerente.getTelefone());
+        stmt.setString(6, gerente.getEndereco());
+        stmt.setString(7, gerente.getMatricula());
+        stmt.setString(8, gerente.getPlano());
 
-        if (aluno.getGerente() != null) {
-            stmt.setInt(9, aluno.getGerente().getId());
+        if (gerente.getGerente() != null) {
+            stmt.setInt(9, gerente.getGerente().getId());
         } else {
             stmt.setNull(9, Types.INTEGER);
         }
 
-        if (aluno.getTreinamento() != null) {
-            stmt.setInt(10, aluno.getTreinamento().getId());
+        if (gerente.getTreinamento() != null) {
+            stmt.setInt(10, gerente.getTreinamento().getId());
         } else {
             stmt.setNull(10, Types.INTEGER);
         }
 
-        if (aluno.getFrequencia() != null) {
-            stmt.setInt(11, aluno.getFrequencia().getId());
+        if (gerente.getFrequencia() != null) {
+            stmt.setInt(11, gerente.getFrequencia().getId());
         } else {
             stmt.setNull(11, Types.INTEGER);
         }
@@ -216,33 +222,33 @@ public class GerenteDAO implements GenericaDAO<Gerente>{
         ResultSet rs = stmt.getGeneratedKeys();
         if (rs.next()) {
             int idGerado = rs.getInt(1);
-            aluno.setId(idGerado);
+            gerente.setId(idGerado);
         }
     }
 
     @Override
-    public void atualizar(Aluno aluno) throws SQLException {
-        String sql = "UPDATE Aluno SET nome = ?, cpf = ?, email = ?, senha = ?, telefone = ?, endereco = ?, " +
+    public void atualizar(gerente gerente) throws SQLException {
+        String sql = "UPDATE gerente SET nome = ?, cpf = ?, email = ?, senha = ?, telefone = ?, endereco = ?, " +
                 "matricula = ?, plano = ?, gerente_id = ?, treinamento_id = ?, frequencia_id = ? WHERE id = ?";
         PreparedStatement stmt = conexao.prepareStatement(sql);
-        stmt.setString(1, aluno.getNome());
-        stmt.setString(2, aluno.getCpf());
-        stmt.setString(3, aluno.getEmail());
-        stmt.setString(4, aluno.getSenha());
-        stmt.setString(5, aluno.getTelefone());
-        stmt.setString(6, aluno.getEndereco());
-        stmt.setString(7, aluno.getMatricula());
-        stmt.setString(8, aluno.getPlano());
-        stmt.setInt(9, aluno.getGerente().getId());
-        stmt.setInt(10, aluno.getTreinamento().getId());
-        stmt.setInt(11, aluno.getFrequencia().getId());
-        stmt.setInt(12, aluno.getId());
+        stmt.setString(1, gerente.getNome());
+        stmt.setString(2, gerente.getCpf());
+        stmt.setString(3, gerente.getEmail());
+        stmt.setString(4, gerente.getSenha());
+        stmt.setString(5, gerente.getTelefone());
+        stmt.setString(6, gerente.getEndereco());
+        stmt.setString(7, gerente.getMatricula());
+        stmt.setString(8, gerente.getPlano());
+        stmt.setInt(9, gerente.getGerente().getId());
+        stmt.setInt(10, gerente.getTreinamento().getId());
+        stmt.setInt(11, gerente.getFrequencia().getId());
+        stmt.setInt(12, gerente.getId());
         stmt.executeUpdate();
     }
 
     @Override
     public void deletar(int id) throws SQLException {
-        String sql = "DELETE FROM Aluno WHERE id = ?";
+        String sql = "DELETE FROM gerente WHERE id = ?";
         PreparedStatement stmt = conexao.prepareStatement(sql);
         stmt.setInt(1, id);
         stmt.executeUpdate();
@@ -250,8 +256,8 @@ public class GerenteDAO implements GenericaDAO<Gerente>{
     }
 
     @Override
-    public Aluno buscarPorId(int id) throws SQLException {
-        String sql = "SELECT * FROM Aluno WHERE id = ?";
+    public gerente buscarPorId(int id) throws SQLException {
+        String sql = "SELECT * FROM gerente WHERE id = ?";
         PreparedStatement stmt = conexao.prepareStatement(sql);
         stmt.setInt(1, id);
         ResultSet rs = stmt.executeQuery();
@@ -264,7 +270,7 @@ public class GerenteDAO implements GenericaDAO<Gerente>{
             FrequenciaDAO frequenciaDAO = new FrequenciaDAO(conexao);
             Frequencia frequencia = frequenciaDAO.buscarPorId(rs.getInt("frequencia_id"));
 
-            Aluno aluno = new Aluno(
+            gerente gerente = new gerente(
                     rs.getInt("id"),
                     rs.getString("nome"),
                     rs.getString("cpf"),
@@ -277,7 +283,7 @@ public class GerenteDAO implements GenericaDAO<Gerente>{
                     gerente,
                     treinamento,
                     frequencia);
-            return aluno;
+            return gerente;
 
             ///Necessario atribuir os Treinos e Frequencias tambem
         }
@@ -285,14 +291,14 @@ public class GerenteDAO implements GenericaDAO<Gerente>{
     }
 
     @Override
-    public List<Aluno> listar() throws SQLException {
-        List<Aluno> alunos = new ArrayList<>();
-        String sql = "SELECT * FROM Aluno";
+    public List<gerente> listar() throws SQLException {
+        List<gerente> gerentes = new ArrayList<>();
+        String sql = "SELECT * FROM gerente";
         Statement stmt = conexao.createStatement();
         ResultSet rs = stmt.executeQuery(sql);
 
         while (rs.next()) {
-            Aluno aluno = new Aluno(
+            gerente gerente = new gerente(
                     rs.getInt("id"),
                     rs.getString("nome"),
                     rs.getString("cpf"),
@@ -303,8 +309,8 @@ public class GerenteDAO implements GenericaDAO<Gerente>{
                     rs.getString("matricula"),
                     rs.getString("plano")
             );
-            alunos.add(aluno);
+            gerentes.add(gerente);
         }
-        return alunos;
+        return gerentes;
     }*/
 }

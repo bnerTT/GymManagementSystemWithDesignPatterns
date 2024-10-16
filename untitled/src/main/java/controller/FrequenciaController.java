@@ -6,7 +6,6 @@ import model.domain.Frequencia;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.List;
 
 public class FrequenciaController {
     FrequenciaDAO frequenciaDAO = new FrequenciaDAO();
