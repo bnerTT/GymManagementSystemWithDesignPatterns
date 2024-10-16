@@ -1,4 +1,4 @@
-package view;
+package view.gerente;
 
 import controller.*;
 import model.dao.*;

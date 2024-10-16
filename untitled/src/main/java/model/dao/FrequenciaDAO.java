@@ -5,10 +5,13 @@ import model.domain.Frequencia;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FrequenciaDAO {
 
@@ -69,6 +72,56 @@ public class FrequenciaDAO {
 
             return frequencia;
         }
+    }
+
+    public Frequencia buscarFrequenciasPorId(int id) throws SQLException {
+        String sql = "SELECT data FROM FrequenciaDatas WHERE frequencia_id = ?";
+
+        try(var conn = DB.connect(); var pstmt = conn.prepareStatement(sql)){
+            pstmt.setInt(1, id);
+            var rs = pstmt.executeQuery();
+            List<LocalDate> datas = new ArrayList<>();
+            while (rs.next()) {
+                datas.add(rs.getDate("data").toLocalDate());
+            }
+            Frequencia frequencia = new Frequencia();
+            frequencia.setFrequencia(datas);
+            return frequencia;
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public List<Frequencia> buscarTodasFrequencias() throws SQLException {
+        String sql = "SELECT f.id, fd.data FROM frequencia f " +
+                "JOIN frequenciadatas fd ON f.id = fd.frequencia_id " +
+                "ORDER BY f.id, fd.data";
+
+        List<Frequencia> frequencias = new ArrayList<>();
+        Map<Integer, Frequencia> frequenciaMap = new HashMap<>();
+
+        try (var conn = DB.connect(); var pstmt = conn.prepareStatement(sql)) {
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                int frequenciaId = rs.getInt("id");
+                LocalDate data = rs.getDate("data").toLocalDate();
+
+                Frequencia frequencia = frequenciaMap.get(frequenciaId);
+                if (frequencia == null) {
+                    frequencia = new Frequencia();
+                    frequencia.setId(frequenciaId);
+                    frequencia.setFrequencia(new ArrayList<>());
+                    frequenciaMap.put(frequenciaId, frequencia);
+                }
+
+                frequencia.getFrequencia().add(data);
+            }
+        }
+
+        frequencias.addAll(frequenciaMap.values());
+        return frequencias;
     }
 
     // Método para atualizar uma frequência existente

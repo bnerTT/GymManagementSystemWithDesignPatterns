@@ -1,11 +1,16 @@
 package view;
 
 
-import model.dao.AlunoDAO;
+import controller.AlunoController;
+import controller.InstrutorController;
 import model.dao.GerenteDAO;
 import model.domain.Aluno;
 import model.domain.Gerente;
+import model.domain.Instrutor;
 import util.ValidaLogin;
+import view.aluno.AlunoView;
+import view.gerente.GerenteView;
+import view.instrutor.InstrutorView;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -44,13 +49,23 @@ public class LoginView {
                 switch(escolha){
                     case 1:
                         usuarioValidado = ValidaLogin.verificaAlunoLogin(email, senha);
-                        AlunoDAO alunoDAO = new AlunoDAO();
+                        AlunoController alunoController = new AlunoController();
+                        Aluno aluno = alunoController.buscarAlunoPorEmail(email);
                         AlunoView alunoView = new AlunoView();
-                        alunoView.displayAlunoView(alunoDAO.buscarAlunoPorEmail(email));
+                        alunoView.displayAlunoView(aluno);
+
+                        usuarioValidado = false;
+
                         break;
 
                     case 2:
                         usuarioValidado = ValidaLogin.verificaInstrutor(email, senha);
+                        InstrutorController instrutorController = new InstrutorController();
+                        Instrutor instrutor = instrutorController.buscarInstrutorEmail(email);
+                        InstrutorView instrutorView = new InstrutorView();
+                        instrutorView.displayInstrutorView(instrutor);
+
+                        usuarioValidado = false;
                         break;
 
                     case 3:
@@ -58,6 +73,8 @@ public class LoginView {
                         GerenteDAO gerenteDAO = new GerenteDAO();
                         Gerente gerente = gerenteDAO.buscarGerentePorEmail(email);
                         GerenteView.displayGerenteView(gerente);
+
+                        usuarioValidado = false;
                         break;
 
                     default:
@@ -73,6 +90,8 @@ public class LoginView {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        input.close();
     }
 
 }

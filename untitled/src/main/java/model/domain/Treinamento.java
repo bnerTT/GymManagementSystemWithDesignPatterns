@@ -6,12 +6,20 @@ import java.util.List;
 
 public class Treinamento {
     private int id;
+    private int alunoId;
     private String tipo;
     private LocalDate dataInicio;
     private LocalDate dataFim;
     private List<TreinoDia> exerciciosDias;
 
     public Treinamento() {
+    }
+
+    public Treinamento(String tipo, LocalDate dataInicio, LocalDate dataFim, int alunoId) {
+        this.tipo = tipo;
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
+        this.alunoId = alunoId;
     }
 
     public Treinamento(int id, String tipo, LocalDate dataInicio, LocalDate dataFim) {
@@ -28,6 +36,14 @@ public class Treinamento {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getAlunoId() {
+        return alunoId;
+    }
+
+    public void setAlunoId(int alunoId) {
+        this.alunoId = alunoId;
     }
 
     public LocalDate getDataInicio() {

@@ -12,6 +12,48 @@ public class TreinoDiaDAO {
     public void inserirTreinoDia(TreinoDia treinoDia, int treinamentoId) throws SQLException {
         var sql = "INSERT INTO treinodia (treinamento_id, diasemana) VALUES (?, ?)";
 
+        try (var conn = DB.connect()) {
+            assert conn != null;
+            try (var pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                pstmt.setInt(1, treinamentoId);
+                pstmt.setString(2, treinoDia.getDiaSemana());
+
+                int insertedRows = pstmt.executeUpdate();
+                if (insertedRows > 0) {
+                    ResultSet rs = pstmt.getGeneratedKeys();
+                    if (rs.next()) {
+                        treinoDia.setId(rs.getInt(1));  // Pega o ID gerado para o treino do dia
+                    }
+                }
+            }
+        }
+    }
+
+    public void inserirAtividades(TreinoDia treinoDia) throws SQLException {
+        var sql = "INSERT INTO treino(treino_dia_id, exercicio_1, exercicio_2, exercicio_3, exercicio_4, exercicio_5, exercicio_6, exercicio_7, exercicio_8, exercicio_9, exercicio_10) VALUES (?, ?, ?, ?,?,?,?,?,?,?,?)";
+
+        try (var conn = DB.connect()) {
+            assert conn != null;
+            try (var pstmt = conn.prepareStatement(sql)) {
+                pstmt.setInt(1, treinoDia.getId());
+
+                List<String> atividades = treinoDia.getAtividades();
+                for (int i = 0; i < 10; i++) {
+                    if (i < atividades.size()) {
+                        pstmt.setString(i + 2, atividades.get(i)); // i + 2 pois o primeiro é treino_dia_id
+                    } else {
+                        pstmt.setNull(i + 2, Types.VARCHAR); // Define null para os exercícios que não existem
+                    }
+                }
+
+                pstmt.executeUpdate();
+            }
+        }
+    }
+
+    /*public void inserirTreinoDia(TreinoDia treinoDia, int treinamentoId) throws SQLException {
+        var sql = "INSERT INTO treinodia (treinamento_id, diasemana) VALUES (?, ?)";
+
         try(var conn = DB.connect()){
             assert conn != null;
 
@@ -54,7 +96,7 @@ public class TreinoDiaDAO {
                 System.out.println(e.getMessage());
             }
         }
-    }
+    }*/
 
     public static List<TreinoDia> buscarTreinoDiasPorTreinamentoId(int treinamentoId) throws SQLException {
         var sql = "SELECT * FROM treinodia WHERE treinamento_id = ?";

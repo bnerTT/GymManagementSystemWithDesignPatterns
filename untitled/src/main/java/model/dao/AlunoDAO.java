@@ -195,6 +195,18 @@ public class AlunoDAO implements GenericaDAO<Aluno>{
                         rs.getString("matricula"),
                         rs.getString("plano"));
 
+                InstrutorDAO instrutorDAO = new InstrutorDAO();
+                Instrutor instrutor = instrutorDAO.buscarPorId(rs.getInt("instrutor_id"));
+                aluno.setInstrutor(instrutor);
+
+                TreinamentoDAO treinamentoDAO = new TreinamentoDAO();
+                Treinamento treinamento = treinamentoDAO.buscarTreinamentoPorId(rs.getInt("treinamento_id"));
+                aluno.setTreinamento(treinamento);
+
+                FrequenciaDAO frequenciaDAO = new FrequenciaDAO();
+                Frequencia frequencia = frequenciaDAO.buscarFrequenciaPorId(rs.getInt("frequencia_id"));
+                aluno.setFrequencia(frequencia);
+
                 return aluno;
             }
         } catch (SQLException e) {

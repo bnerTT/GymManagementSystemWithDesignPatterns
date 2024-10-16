@@ -21,6 +21,15 @@ public class InstrutorController {
         instrutorDAO.deletar(instrutor.getId());
     }
 
+    public Instrutor buscarInstrutorEmail(String email) throws SQLException {
+        Instrutor instrutor = instrutorDAO.buscarInstrutorPorEmail(email);
+        if (instrutor == null) {
+            System.out.println("Instrutor não encontrado");
+            return null;
+        }
+        return instrutor;
+    }
+
     public Instrutor buscarInstrutor(String nome) throws SQLException {
         Instrutor instrutor = instrutorDAO.buscarInstrutorPorNome(nome);
         if(instrutor == null){

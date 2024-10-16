@@ -13,6 +13,10 @@ public class AlunoController {
         return alunoDAO.buscarPorNome(nome);
     }
 
+    public Aluno buscarAlunoPorEmail(String email) throws SQLException {
+        return alunoDAO.buscarAlunoPorEmail(email);
+    }
+
     public void associarAlunoInstrutor(Aluno aluno, Instrutor instrutor) throws SQLException {
         aluno.setInstrutor(instrutor);
     }

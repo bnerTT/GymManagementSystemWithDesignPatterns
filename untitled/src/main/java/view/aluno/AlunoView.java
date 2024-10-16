@@ -1,5 +1,6 @@
-package view;
+package view.aluno;
 
+import controller.FrequenciaController;
 import controller.TreinamentoController;
 import model.domain.Aluno;
 
@@ -11,6 +12,7 @@ public class AlunoView {
     public void displayAlunoView(Aluno aluno) {
         int opcao;
         TreinamentoController treinamentoController = new TreinamentoController();
+        FrequenciaController frequenciaController = new FrequenciaController();
 
         try(Scanner input = new Scanner(System.in)){
             do {
@@ -30,6 +32,8 @@ public class AlunoView {
                         break;
 
                     case 2:
+                        System.out.println("Visualizar frequência");
+                        frequenciaController.listarFrequencia(aluno);
                         break;
 
                     case 9:
