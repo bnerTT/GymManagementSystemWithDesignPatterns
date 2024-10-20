@@ -2,7 +2,12 @@ package view.gerente;
 
 import controller.*;
 import model.dao.*;
-import model.domain.*;
+import model.domain.UsuarioFactory;
+import model.domain.UsuarioTipo;
+import model.domain.usuarios.Aluno;
+import model.domain.usuarios.Gerente;
+import model.domain.usuarios.Instrutor;
+import model.domain.usuarios.Usuario;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -19,12 +24,11 @@ public class GerenteView {
         GerenteController gerenteController = new GerenteController();
         AlunoController alunoController = new AlunoController();
 
-        Instrutor instrutor;
-        Aluno aluno;
-        Gerente novoGerente;
         InstrutorDAO instrutorDAO;
         AlunoDAO alunoDAO;
         GerenteDAO gerenteDAO;
+
+        Usuario aluno, novoGerente, instrutor;
 
         try(Scanner input = new Scanner(System.in)){
             do {
@@ -64,60 +68,59 @@ public class GerenteView {
 
                         switch(tipoUsuario){
                             case 1:
+                                aluno = UsuarioFactory.criaUsuario(UsuarioTipo.ALUNO);
+                                aluno.setNome(nome);
+                                aluno.setCpf(cpf);
+                                aluno.setEmail(email);
+                                aluno.setSenha(senha);
+                                aluno.setTelefone(telefone);
+                                aluno.setEndereco(endereco);
+
+
                                 System.out.println("Insira a matricula:");
                                 String matricula = input.nextLine();
+                                ((Aluno)aluno).setMatricula(matricula);
+
                                 System.out.println("Insira o plano de matrícula:");
                                 String plano = input.nextLine();
+                                ((Aluno)aluno).setPlano(plano);
                                 ///Caso validado
 
-                                aluno = new Aluno(
-                                        nome,
-                                        cpf,
-                                        email,
-                                        senha,
-                                        telefone,
-                                        endereco,
-                                        matricula,
-                                        plano
-                                );
 
                                 System.out.println("Insira o nome do instrutor desse aluno:");
                                 String nomeInstrutor = input.nextLine();
                                 instrutor = instrutorController.buscarInstrutor(nomeInstrutor);
-                                alunoController.associarAlunoInstrutor(aluno, instrutor);
-                                alunoController.cadastrarAluno(aluno);
+                                alunoController.associarAlunoInstrutor((Aluno)aluno, (Instrutor)instrutor);
+                                alunoController.cadastrarAluno((Aluno)aluno);
                                 System.out.println("Aluno cadastrado com sucesso!");
 
                                 break;
 
                             case 2:
                                 //Caso validado
-                                instrutor = new Instrutor(
-                                        nome,
-                                        cpf,
-                                        email,
-                                        senha,
-                                        telefone,
-                                        endereco
-                                );
-                                instrutorController.salvarInstrutor(instrutor);
+                                instrutor = UsuarioFactory.criaUsuario(UsuarioTipo.INSTRUTOR);
+                                instrutor.setNome(nome);
+                                instrutor.setCpf(cpf);
+                                instrutor.setEmail(email);
+                                instrutor.setSenha(senha);
+                                instrutor.setTelefone(telefone);
+                                instrutor.setEndereco(endereco);
+                                instrutorController.salvarInstrutor((Instrutor)instrutor);
                                 System.out.println("Instrutor salvo com sucesso!");
                                 break;
 
                             case 3:
                                 System.out.println("Insira o departamento:");
                                 String departamento = input.nextLine();
-                                novoGerente = new Gerente(
-                                        nome,
-                                        cpf,
-                                        email,
-                                        senha,
-                                        telefone,
-                                        endereco,
-                                        departamento
-                                );
-
-                                gerenteController.salvarGerente(novoGerente);
+                                novoGerente = UsuarioFactory.criaUsuario(UsuarioTipo.GERENTE);
+                                novoGerente.setNome(nome);
+                                novoGerente.setCpf(cpf);
+                                novoGerente.setEmail(email);
+                                novoGerente.setSenha(senha);
+                                novoGerente.setTelefone(telefone);
+                                novoGerente.setEndereco(endereco);
+                                ((Gerente)novoGerente).setDepartamento(departamento);
+                                gerenteController.salvarGerente((Gerente)novoGerente);
                                 System.out.println("Gerente salvo com sucesso!");
                                 break;
                             default:
@@ -193,7 +196,7 @@ public class GerenteView {
                                     System.out.println("Aluno não encontrado.");
                                     break;
                                 }
-                                gerenteEditaView.editarAluno(aluno, input);
+                                gerenteEditaView.editarAluno((Aluno)aluno, input);
                                 break;
 
                             case 2:
@@ -202,7 +205,7 @@ public class GerenteView {
                                     System.out.println("Instrutor não encontrado.");
                                     break;
                                 }
-                                gerenteEditaView.editarInstrutor(instrutor, input);
+                                gerenteEditaView.editarInstrutor((Instrutor)instrutor, input);
                                 break;
 
                             case 3:
@@ -211,7 +214,7 @@ public class GerenteView {
                                     System.out.println("Gerente não encontrado.");
                                     break;
                                 }
-                                gerenteEditaView.editarGerente(novoGerente, input);
+                                gerenteEditaView.editarGerente((Gerente)novoGerente, input);
                                 break;
 
                             default:

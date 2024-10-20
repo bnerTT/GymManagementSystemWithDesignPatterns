@@ -1,8 +1,8 @@
 package model.dao;
 
 import model.database.DB;
-import model.domain.Gerente;
-import model.domain.Usuario;
+import model.domain.usuarios.Gerente;
+import model.domain.usuarios.Usuario;
 import model.domain.UsuarioFactory;
 import model.domain.UsuarioTipo;
 

@@ -2,6 +2,7 @@ package model.dao;
 
 import model.database.DB;
 import model.domain.TreinoDia;
+import model.domain.TreinoDiaFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -110,7 +111,7 @@ public class TreinoDiaDAO {
                 ResultSet rs = pstmt.executeQuery();
                 List<TreinoDia> treinoDias = new ArrayList<>();
                 while(rs.next()){
-                    TreinoDia treinoDia = new TreinoDia();
+                    TreinoDia treinoDia = TreinoDiaFactory.createTreinoDia();
                     treinoDia.setId(rs.getInt("id"));
                     treinoDia.setDiaSemana(rs.getString("diasemana"));
                     treinoDia.setAtividades(buscarAtividadesDoDia(rs.getInt("id")));

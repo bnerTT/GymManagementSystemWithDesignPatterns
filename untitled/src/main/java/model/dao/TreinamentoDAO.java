@@ -1,7 +1,8 @@
 package model.dao;
 
 import model.database.DB;
-import model.domain.Aluno;
+import model.domain.TreinamentoFactory;
+import model.domain.usuarios.Aluno;
 import model.domain.Treinamento;
 import model.domain.TreinoDia;
 
@@ -19,7 +20,7 @@ public class TreinamentoDAO {
                 pstmt.setString(1, treinamento.getTipo());
                 pstmt.setDate(2, Date.valueOf(treinamento.getDataInicio()));
                 pstmt.setDate(3, Date.valueOf(treinamento.getDataFim()));
-                pstmt.setInt(4, treinamento.getAlunoId());
+                pstmt.setInt(4, treinamento.getAluno().getId());
                 int insertedRows = pstmt.executeUpdate();
 
                 if (insertedRows > 0) {
@@ -60,12 +61,13 @@ public class TreinamentoDAO {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                Treinamento treinamento = new Treinamento();
+                Treinamento treinamento = TreinamentoFactory.criaTreinamento();
                 treinamento.setId(rs.getInt("id"));
                 treinamento.setTipo(rs.getString("tipo"));
                 treinamento.setDataInicio(rs.getDate("data_inicio").toLocalDate());
                 treinamento.setDataFim(rs.getDate("data_fim").toLocalDate());
-                treinamento.setAlunoId(rs.getInt("aluno_id"));
+                AlunoDAO alunoDAO = new AlunoDAO();
+                treinamento.setAluno(alunoDAO.buscarPorId(alunoDAO.buscarPorId(rs.getInt("aluno_id")).getId()));
                 return treinamento;
             }
         }
@@ -83,13 +85,13 @@ public class TreinamentoDAO {
 
                 ResultSet rs = pstmt.executeQuery();
                 if(rs.next()){
-                    Treinamento treinamento = new Treinamento();
+                    Treinamento treinamento = TreinamentoFactory.criaTreinamento();
                     treinamento.setId(rs.getInt("id"));
                     treinamento.setTipo(rs.getString("tipo"));
                     treinamento.setDataInicio(rs.getDate("data_inicio").toLocalDate());
-                    treinamento.setDataInicio(rs.getDate("data_fim").toLocalDate());
-                    treinamento.setAlunoId(rs.getInt("aluno_id"));
-                    treinamento.setExerciciosDias(buscarTreinoDiasPorTreinamentoId(id));
+                    treinamento.setDataFim(rs.getDate("data_fim").toLocalDate());
+                    AlunoDAO alunoDAO = new AlunoDAO();
+                    treinamento.setAluno(alunoDAO.buscarPorId(alunoDAO.buscarPorId(rs.getInt("aluno_id")).getId()));
                     return treinamento;
                 }
                 return null;

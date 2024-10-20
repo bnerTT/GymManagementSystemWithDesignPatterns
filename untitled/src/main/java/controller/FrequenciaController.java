@@ -1,7 +1,7 @@
 package controller;
 
 import model.dao.FrequenciaDAO;
-import model.domain.Aluno;
+import model.domain.usuarios.Aluno;
 import model.domain.Frequencia;
 
 import java.sql.SQLException;
@@ -22,7 +22,13 @@ public class FrequenciaController {
     }
 
     public void listarFrequencia(Aluno aluno) throws SQLException {
-        Frequencia frequencia = frequenciaDAO.buscarFrequenciasPorId(aluno.getFrequencia().getId());
+        FrequenciaDAO frequenciaDAO = new FrequenciaDAO();
+        Frequencia frequencia = new Frequencia();
+        frequencia = frequenciaDAO.buscarFrequenciasPorId(aluno.getFrequencia().getId());
+        if(frequencia == null) {
+            System.out.println("Sem frequencia");
+            return;
+        }
         for(LocalDate dia : frequencia.getFrequencia()){
             System.out.println(dia);
         }

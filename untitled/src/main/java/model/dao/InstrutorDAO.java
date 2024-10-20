@@ -2,6 +2,8 @@ package model.dao;
 
 import model.database.DB;
 import model.domain.*;
+import model.domain.usuarios.Instrutor;
+import model.domain.usuarios.Usuario;
 
 import java.sql.SQLException;
 import java.sql.Statement;

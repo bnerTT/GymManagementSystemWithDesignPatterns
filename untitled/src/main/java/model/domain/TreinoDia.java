@@ -12,13 +12,6 @@ public class TreinoDia {
     public TreinoDia() {
     }
 
-    public TreinoDia(int id, String diaSemana, int treinamento) {
-        this.id = id;
-        this.diaSemana = diaSemana;
-        this.treinamento = treinamento;
-        this.atividades = new ArrayList<>();
-    }
-
     public int getId() {
         return id;
     }

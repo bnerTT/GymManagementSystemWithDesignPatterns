@@ -1,4 +1,4 @@
-package model.domain;
+package model.domain.usuarios;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package model.domain;
+package model.domain.usuarios;
 
-public class Gerente extends Usuario{
+public class Gerente extends Usuario {
     private String departamento;
 
     public Gerente() {

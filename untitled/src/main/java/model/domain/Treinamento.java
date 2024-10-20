@@ -1,33 +1,19 @@
 package model.domain;
 
+import model.domain.usuarios.Aluno;
+
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Treinamento {
     private int id;
-    private int alunoId;
+    private Aluno aluno;
     private String tipo;
     private LocalDate dataInicio;
     private LocalDate dataFim;
     private List<TreinoDia> exerciciosDias;
 
     public Treinamento() {
-    }
-
-    public Treinamento(String tipo, LocalDate dataInicio, LocalDate dataFim, int alunoId) {
-        this.tipo = tipo;
-        this.dataInicio = dataInicio;
-        this.dataFim = dataFim;
-        this.alunoId = alunoId;
-    }
-
-    public Treinamento(int id, String tipo, LocalDate dataInicio, LocalDate dataFim) {
-        this.id = id;
-        this.tipo = tipo;
-        this.dataInicio = dataInicio;
-        this.dataFim = dataFim;
-        this.exerciciosDias = new ArrayList<>();
     }
 
     public int getId() {
@@ -38,12 +24,12 @@ public class Treinamento {
         this.id = id;
     }
 
-    public int getAlunoId() {
-        return alunoId;
+    public Aluno getAluno() {
+        return aluno;
     }
 
-    public void setAlunoId(int alunoId) {
-        this.alunoId = alunoId;
+    public void setAluno(Aluno aluno) {
+        this.aluno = aluno;
     }
 
     public LocalDate getDataInicio() {

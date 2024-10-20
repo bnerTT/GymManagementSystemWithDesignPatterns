@@ -1,6 +1,6 @@
 package model.dao;
 
-import model.domain.Usuario;
+import model.domain.usuarios.Usuario;
 
 import java.sql.SQLException;
 import java.util.List;

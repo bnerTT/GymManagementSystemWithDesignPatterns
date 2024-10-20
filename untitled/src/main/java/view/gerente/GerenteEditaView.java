@@ -3,9 +3,9 @@ package view.gerente;
 import controller.AlunoController;
 import controller.GerenteController;
 import controller.InstrutorController;
-import model.domain.Aluno;
-import model.domain.Gerente;
-import model.domain.Instrutor;
+import model.domain.usuarios.Aluno;
+import model.domain.usuarios.Gerente;
+import model.domain.usuarios.Instrutor;
 
 import java.sql.SQLException;
 import java.util.Scanner;

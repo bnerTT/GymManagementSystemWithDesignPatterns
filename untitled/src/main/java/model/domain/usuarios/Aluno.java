@@ -1,6 +1,9 @@
-package model.domain;
+package model.domain.usuarios;
 
-public class Aluno extends Usuario{
+import model.domain.Frequencia;
+import model.domain.Treinamento;
+
+public class Aluno extends Usuario {
     private String matricula;
     private String plano;
     private Instrutor instrutor;

@@ -3,8 +3,8 @@ package view.instrutor;
 import controller.AlunoController;
 import controller.FrequenciaController;
 import controller.TreinamentoController;
-import model.domain.Aluno;
-import model.domain.Instrutor;
+import model.domain.usuarios.Aluno;
+import model.domain.usuarios.Instrutor;
 
 import java.sql.SQLException;
 import java.util.Scanner;

@@ -3,9 +3,9 @@ package util;
 import model.dao.AlunoDAO;
 import model.dao.GerenteDAO;
 import model.dao.InstrutorDAO;
-import model.domain.Aluno;
-import model.domain.Gerente;
-import model.domain.Instrutor;
+import model.domain.usuarios.Aluno;
+import model.domain.usuarios.Gerente;
+import model.domain.usuarios.Instrutor;
 
 import java.sql.SQLException;
 

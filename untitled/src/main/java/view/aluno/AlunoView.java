@@ -2,7 +2,7 @@ package view.aluno;
 
 import controller.FrequenciaController;
 import controller.TreinamentoController;
-import model.domain.Aluno;
+import model.domain.usuarios.Aluno;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -37,9 +37,11 @@ public class AlunoView {
                         break;
 
                     case 9:
+                        System.out.println("Efetuando logout.");
                         break;
 
                     default:
+                        System.out.println("Opção inválida.");
                         break;
                 }
 

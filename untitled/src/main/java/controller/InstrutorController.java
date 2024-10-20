@@ -1,7 +1,7 @@
 package controller;
 
 import model.dao.InstrutorDAO;
-import model.domain.Instrutor;
+import model.domain.usuarios.Instrutor;
 
 import java.sql.SQLException;
 

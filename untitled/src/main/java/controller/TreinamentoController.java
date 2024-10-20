@@ -2,12 +2,11 @@ package controller;
 
 import model.dao.TreinamentoDAO;
 import model.dao.TreinoDiaDAO;
-import model.domain.Aluno;
+import model.domain.usuarios.Aluno;
 import model.domain.Treinamento;
 import model.domain.TreinoDia;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -18,6 +17,8 @@ public class TreinamentoController {
 
     public void criarTreinamento(Treinamento treinamento) throws SQLException {
         treinamentoDAO.inserirTreinamento(treinamento);
+        treinamentoDAO.buscarTreinamentoPorIdAluno(treinamento.getAluno());
+        treinamento.setId((treinamentoDAO.buscarTreinamentoPorIdAluno(treinamento.getAluno())).getId());
     }
 
     public Treinamento buscarTreinamento(Aluno aluno) throws SQLException {
@@ -101,8 +102,10 @@ public class TreinamentoController {
     }
 
 
-    public void criarTreinamentoComTreinosPorSemana(Aluno aluno, Treinamento treinamento, Scanner input) throws SQLException {
-        aluno.setTreinamento(treinamento);
+    public void criarTreinamentoComTreinosPorSemana(Aluno aluno, Treinamento treinamento) throws SQLException {
+        AlunoController alunoController = new AlunoController();
+        Scanner input = new Scanner(System.in);
+        alunoController.associarAlunoTreino(aluno, treinamento);
 
         // Dias da semana que serão preenchidos com treinos
         String[] diasDaSemana = {"Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado", "Domingo"};
@@ -126,6 +129,7 @@ public class TreinamentoController {
         }
 
         System.out.println("Treinamento com treinos por semana criado com sucesso para o aluno " + aluno.getNome());
+        input.close();
     }
 
 }

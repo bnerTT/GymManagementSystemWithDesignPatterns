@@ -1,4 +1,4 @@
-package model.domain;
+package model.domain.usuarios;
 
 public abstract class Usuario {
     private int id;

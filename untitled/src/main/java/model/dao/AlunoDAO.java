@@ -1,17 +1,16 @@
 package model.dao;
 
 import model.database.DB;
-import model.domain.Aluno;
+import model.domain.usuarios.Aluno;
 import model.domain.Frequencia;
-import model.domain.Instrutor;
+import model.domain.usuarios.Instrutor;
 import model.domain.Treinamento;
-import model.domain.Usuario;
+import model.domain.usuarios.Usuario;
 import model.domain.UsuarioFactory;
 import model.domain.UsuarioTipo;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class AlunoDAO implements GenericaDAO<Aluno>{
 
@@ -43,6 +42,20 @@ public class AlunoDAO implements GenericaDAO<Aluno>{
             }
         }
 
+    }
+
+    public void adicionarTreinamento(Aluno aluno) throws SQLException {
+        var sql = "UPDATE aluno SET treinamento_id=? WHERE id=?";
+        try(var conn = DB.connect()){
+            assert conn != null;
+            try(var pstmt = conn.prepareStatement(sql)){
+                pstmt.setInt(1, aluno.getTreinamento().getId());
+                pstmt.setInt(2, aluno.getId());
+                pstmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void salvarComTreinamento(Aluno aluno) throws SQLException {
@@ -120,21 +133,7 @@ public class AlunoDAO implements GenericaDAO<Aluno>{
                 ((Aluno) aluno).setMatricula(rs.getString("matricula"));
                 ((Aluno) aluno).setPlano(rs.getString("plano"));
 
-
-                
-                InstrutorDAO instrutorDAO = new InstrutorDAO();
-                Instrutor instrutor = instrutorDAO.buscarPorId(rs.getInt("instrutor_id"));
-                aluno.setInstrutor(instrutor);
-
-                TreinamentoDAO treinamentoDAO = new TreinamentoDAO();
-                Treinamento treinamento = treinamentoDAO.buscarTreinamentoPorId(rs.getInt("treinamento_id"));
-                aluno.setTreinamento(treinamento);
-
-                FrequenciaDAO frequenciaDAO = new FrequenciaDAO();
-                Frequencia frequencia = frequenciaDAO.buscarFrequenciaPorId(rs.getInt("frequencia_id"));
-                aluno.setFrequencia(frequencia);
-
-                return aluno;
+                return (Aluno)aluno;
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -161,19 +160,7 @@ public class AlunoDAO implements GenericaDAO<Aluno>{
                 ((Aluno) aluno).setMatricula(rs.getString("matricula"));
                 ((Aluno) aluno).setPlano(rs.getString("plano"));
 
-                InstrutorDAO instrutorDAO = new InstrutorDAO();
-                Instrutor instrutor = instrutorDAO.buscarPorId(rs.getInt("instrutor_id"));
-                aluno.setInstrutor(instrutor);
-
-                TreinamentoDAO treinamentoDAO = new TreinamentoDAO();
-                Treinamento treinamento = treinamentoDAO.buscarTreinamentoPorId(rs.getInt("treinamento_id"));
-                aluno.setTreinamento(treinamento);
-
-                FrequenciaDAO frequenciaDAO = new FrequenciaDAO();
-                Frequencia frequencia = frequenciaDAO.buscarFrequenciaPorId(rs.getInt("frequencia_id"));
-                aluno.setFrequencia(frequencia);
-
-                return aluno;
+                return (Aluno)aluno;
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -199,19 +186,7 @@ public class AlunoDAO implements GenericaDAO<Aluno>{
                 ((Aluno) aluno).setMatricula(rs.getString("matricula"));
                 ((Aluno) aluno).setPlano(rs.getString("plano"));
 
-                InstrutorDAO instrutorDAO = new InstrutorDAO();
-                Instrutor instrutor = instrutorDAO.buscarPorId(rs.getInt("instrutor_id"));
-                aluno.setInstrutor(instrutor);
-
-                TreinamentoDAO treinamentoDAO = new TreinamentoDAO();
-                Treinamento treinamento = treinamentoDAO.buscarTreinamentoPorId(rs.getInt("treinamento_id"));
-                aluno.setTreinamento(treinamento);
-
-                FrequenciaDAO frequenciaDAO = new FrequenciaDAO();
-                Frequencia frequencia = frequenciaDAO.buscarFrequenciaPorId(rs.getInt("frequencia_id"));
-                aluno.setFrequencia(frequencia);
-
-                return aluno;
+                return (Aluno)aluno;
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

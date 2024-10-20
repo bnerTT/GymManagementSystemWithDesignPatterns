@@ -1,7 +1,8 @@
 package view.instrutor;
 
 import controller.TreinamentoController;
-import model.domain.Aluno;
+import model.domain.TreinamentoFactory;
+import model.domain.usuarios.Aluno;
 import model.domain.Treinamento;
 
 import java.sql.SQLException;
@@ -24,14 +25,20 @@ public class InstrutorCriarTreinoView {
             input.nextLine();  // Limpa o buffer
 
             // Criar o treinamento com os treinos por semana
-            treinamentoController.criarTreinamento(new Treinamento(tipo, LocalDate.parse(data), LocalDate.parse(data).plusDays(periodo), aluno.getId()));
-            Treinamento treinamento = treinamentoController.buscarTreinamento(aluno);
-            treinamentoController.criarTreinamentoComTreinosPorSemana(aluno, treinamento, input);
+            Treinamento treinamento = TreinamentoFactory.criaTreinamento();
+            treinamento.setTipo(tipo);
+            treinamento.setDataInicio(LocalDate.parse(data));
+            treinamento.setDataFim(LocalDate.parse(data).plusDays(periodo));
+            treinamento.setAluno(aluno);
+            treinamentoController.criarTreinamento(treinamento);
+            treinamentoController.criarTreinamentoComTreinosPorSemana(aluno, treinamento);
 
-
+            System.out.println("Treinamento criado com sucesso!");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        return;
     }
 
 }

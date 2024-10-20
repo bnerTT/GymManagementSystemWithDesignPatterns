@@ -1,8 +1,9 @@
 package controller;
 
 import model.dao.AlunoDAO;
-import model.domain.Aluno;
-import model.domain.Instrutor;
+import model.domain.Treinamento;
+import model.domain.usuarios.Aluno;
+import model.domain.usuarios.Instrutor;
 
 import java.sql.SQLException;
 
@@ -15,6 +16,11 @@ public class AlunoController {
 
     public Aluno buscarAlunoPorEmail(String email) throws SQLException {
         return alunoDAO.buscarAlunoPorEmail(email);
+    }
+
+    public void associarAlunoTreino(Aluno aluno, Treinamento treinamento) throws SQLException {
+        aluno.setTreinamento(treinamento);
+        alunoDAO.adicionarTreinamento(aluno);
     }
 
     public void associarAlunoInstrutor(Aluno aluno, Instrutor instrutor) throws SQLException {

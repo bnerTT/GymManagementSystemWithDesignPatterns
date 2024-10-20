@@ -1,7 +1,7 @@
 package controller;
 
 import model.dao.GerenteDAO;
-import model.domain.Gerente;
+import model.domain.usuarios.Gerente;
 
 import java.sql.SQLException;
 

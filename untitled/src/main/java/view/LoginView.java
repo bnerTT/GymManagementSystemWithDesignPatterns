@@ -4,9 +4,9 @@ package view;
 import controller.AlunoController;
 import controller.InstrutorController;
 import model.dao.GerenteDAO;
-import model.domain.Aluno;
-import model.domain.Gerente;
-import model.domain.Instrutor;
+import model.domain.usuarios.Aluno;
+import model.domain.usuarios.Gerente;
+import model.domain.usuarios.Instrutor;
 import util.ValidaLogin;
 import view.aluno.AlunoView;
 import view.gerente.GerenteView;
@@ -34,6 +34,7 @@ public class LoginView {
                 System.out.println("1. Aluno");
                 System.out.println("2. Instrutor");
                 System.out.println("3. Gerente");
+                System.out.println("9. Sair");
                 escolha = input.nextInt();
 
                 //Limpa buffer
@@ -77,12 +78,15 @@ public class LoginView {
                         usuarioValidado = false;
                         break;
 
+                    case 9:
+                        break;
+
                     default:
                         System.out.println("Opção inválida!");
                         break;
                 }
 
-            } while(!usuarioValidado);
+            } while(escolha != 9);
 
         } catch (NumberFormatException e){
             System.out.println("Entrada inválida.");
